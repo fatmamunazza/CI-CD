@@ -1,18 +1,35 @@
-pipeline{
-    agent any
-    triggers {
-       pollSCM '* * * *'
+pipeline {
+   agent any
+     tools {
+        jdk 'Java_11'
     }
-    stages {
-        stage('Build') {
+   stages {
+        stage('build') {
             steps {
-                bat 'mvn clean install'
+               sh 'mvn --version'
+               echo 'Building the source'
+               sh 'mvn clean compile'
             }
         }
-        stage('Test') {
+		stage('test') {
             steps {
-                bat 'mvn test'
+                echo 'Testing source'
+                sh 'mvn test'
+            }
+        }
+		stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+		stage('package') {
+            steps {
+				echo 'packaging testapp'
+                bat 'mvn package'
             }
         }
     }
 }
+
+
+
