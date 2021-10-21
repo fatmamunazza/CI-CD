@@ -3,6 +3,7 @@ pipeline {
      tools {
         jdk 'Java_11'
     }
+    
    stages {
         stage('build') {
             steps {
@@ -25,10 +26,8 @@ pipeline {
         }
         stage('Building Our Image') { 
 	        steps { 
-	                script {
-	                    dockerImage = docker.build(registry)
-	                }
-	            } 
+	            bat 'docker build . --tag demo'
+	        } 
         }
     }
 }
