@@ -11,9 +11,24 @@ pipeline {
                bat 'mvn clean compile'
             }
         }
-		
+		stage('test') {
+            steps {
+                echo 'Testing source'
+                bat 'mvn test'
+            }
+        }
+		stage('package') {
+            steps {
+				echo 'packaging demo app'
+                bat 'mvn package'
+            }
+        }
+        stage('Building Our Image') { 
+	        steps { 
+	                script {
+	                    dockerImage = docker.build(registry)
+	                }
+	            } 
+        }
     }
 }
-
-
-
