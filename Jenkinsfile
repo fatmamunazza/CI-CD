@@ -1,4 +1,9 @@
 pipeline {
+    environment { 
+        registry = "fatmamunazza/demo" 
+        registryCredential = 'fatmamunazza' 
+        dockerImage = '' 
+    }
    agent any
      tools {
         jdk 'Java_11'
@@ -26,7 +31,9 @@ pipeline {
         }
         stage('Building Our Image') { 
 	        steps { 
-	            bat 'docker build . --tag demo'
+	           script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
 	        } 
         }
     }
