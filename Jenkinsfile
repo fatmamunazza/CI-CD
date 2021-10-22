@@ -1,6 +1,7 @@
 pipeline {
     environment { 
         registry = "fatmamunazza/demo" 
+        DOCKERHUB_CREDENTIALS=credentials('docker_cred')
         DOCKERHUB_CREDENTIALS_PSW="sapient123"
         DOCKERHUB_CREDENTIALS_USR="fatmamunazza"
         dockerImage = '' 
@@ -24,7 +25,7 @@ pipeline {
         }
         stage('Login') {
 			steps {
-				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'		
+				bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'	
 			}
 		}
 		stage('Push') {
