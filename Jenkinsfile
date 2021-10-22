@@ -1,7 +1,7 @@
 pipeline {
     environment { 
         registry = "fatmamunazza/demo" 
-        DOCKERHUB_CREDENTIALS_PSW="Munazza753$!"
+        DOCKERHUB_CREDENTIALS_PSW="sapient123"
         DOCKERHUB_CREDENTIALS_USR="fatmamunazza"
         dockerImage = '' 
     }
