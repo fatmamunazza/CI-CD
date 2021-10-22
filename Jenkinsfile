@@ -1,7 +1,6 @@
 pipeline {
     environment { 
         registry="fatmamunazza/demo"
-        DOCKERHUB_CREDENTIALS=credentials('docker_cred')
         registryCredential = 'docker_cred'
         dockerImage = '' 
     }
@@ -53,9 +52,6 @@ pipeline {
                 bat "docker rmi fatmamunazza/demo"
 
             }
-
         } 
-
-		
     }
 }
