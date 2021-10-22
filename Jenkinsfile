@@ -32,14 +32,31 @@ pipeline {
         }
         stage('Building Our Image') { 
 	        steps { 
-	           bat 'docker build . --tag demo'
+	           script { 
+                    dockerImage = docker build . --tag registry + ":$BUILD_NUMBER" 
+                }
 	        } 
         }
         stage('Login') {
 
 			steps {
-				bat 'echo DOCKERHUB_CREDENTIALS_PSW | docker login -u DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				bat 'docker login -u fatmamunazza'
 			}
 		}
+		stage('Push') {
+
+			steps {
+				bat 'docker push fatmamunazza/demo:latest'
+			}
+		}
+		stage('Cleaning up') { 
+            steps { 
+                bat "docker rmi $registry:$BUILD_NUMBER" 
+
+            }
+
+        } 
+
+		
     }
 }
