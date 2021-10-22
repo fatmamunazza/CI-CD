@@ -2,6 +2,7 @@ pipeline {
     environment { 
         registry="fatmamunazza/demo"
         DOCKERHUB_CREDENTIALS=credentials('docker_cred')
+        registryCredential = ‘docker_cred’
         dockerImage = '' 
     }
    agent any
@@ -18,6 +19,16 @@ pipeline {
 	        }
 	      }
 	    }
+	    stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+
+                } 
+            }
+        }   
        stage('Login') {
 			steps {
 			   
