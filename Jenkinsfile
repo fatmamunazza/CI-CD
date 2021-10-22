@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        registry = fatmamunazza/demo' 
+        registry = 'fatmamunazza/demo' 
         DOCKERHUB_CREDENTIALS=credentials('docker_cred')
         dockerImage = '' 
     }
