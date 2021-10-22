@@ -2,8 +2,6 @@ pipeline {
     environment { 
         registry = "fatmamunazza/demo" 
         DOCKERHUB_CREDENTIALS=credentials('docker_cred')
-        DOCKERHUB_CREDENTIALS_PSW="sapient123"
-        DOCKERHUB_CREDENTIALS_USR="fatmamunazza"
         dockerImage = '' 
     }
    agent any
@@ -14,6 +12,8 @@ pipeline {
    stages {
        stage('Login') {
 			steps {
+			echo DOCKERHUB_CREDENTIALS_PSW
+			echo DOCKERHUB_CREDENTIALS_USR
 				bat 'echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin'	
 			}
 		}
