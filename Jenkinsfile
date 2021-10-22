@@ -12,6 +12,7 @@ pipeline {
    stages {
 	   stage('Building image') {
 	      steps{
+	        echo DOCKERHUB_CREDENTIALS_USR
 	        script {
 	          dockerImage = docker.build(registry)
 	        }
@@ -19,7 +20,7 @@ pipeline {
 	    }
        stage('Login') {
 			steps {
-			    echo DOCKERHUB_CREDENTIALS_USR
+			   
 				bat 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'	
 			}
 		}
