@@ -12,7 +12,7 @@ pipeline {
    stages {
        stage('Building Our Image') { 
 	        steps { 
-	           bat 'docker build -t registry .'
+	           bat 'docker build -t $registry .'
 	        } 
         }
        stage('Login') {
