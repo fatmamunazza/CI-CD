@@ -11,6 +11,25 @@ pipeline {
     }
     
    stages {
+       stage('build') {
+            steps {
+               bat 'mvn --version'
+               echo 'Building the source'
+               bat 'mvn clean compile'
+            }
+        }
+		stage('test') {
+            steps {
+                echo 'Testing source'
+                bat 'mvn test'
+            }
+        }
+		stage('package') {
+            steps {
+				echo 'packaging demo app'
+                bat 'mvn package'
+            }
+        }
 	   stage('Building image') {
 	      steps{
 	        echo DOCKERHUB_CREDENTIALS_USR
@@ -29,25 +48,6 @@ pipeline {
                 } 
             }
         }   
-       stage('Login') {
-			steps {
-			   
-				bat 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'	
-			}
-		}
-		stage('package') {
-            steps {
-				echo 'packaging demo app'
-                bat 'mvn install'
-            }
-        }
-        
-		stage('Push') {
-			steps {
-				bat 'docker tag fatmamunazza/demo fatmamunazza/demo'
-				bat 'docker push fatmamunazza/demo'
-			}
-		}
 		stage('Cleaning up') { 
             steps { 
                 bat "docker rmi fatmamunazza/demo"
