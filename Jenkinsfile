@@ -32,9 +32,7 @@ pipeline {
         }
         stage('Building Our Image') { 
 	        steps { 
-	           script { 
-                    dockerImage = docker build -t registry + ":$BUILD_NUMBER" . 
-                }
+	           bat 'docker build -t fatmamunazza/demo:latest .'
 	        } 
         }
         stage('Login') {
@@ -51,7 +49,7 @@ pipeline {
 		}
 		stage('Cleaning up') { 
             steps { 
-                bat "docker rmi $registry:$BUILD_NUMBER" 
+                bat "docker rmi fatmamunazza/demo:latest"
 
             }
 
