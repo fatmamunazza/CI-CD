@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Login') {
 			steps {
-				bat 'docker login -u fatmamunazza'		
+				bat 'docker login -u fatmamunazza -p sapient123'		
 			}
 		}
 		stage('Push') {
