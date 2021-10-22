@@ -32,24 +32,23 @@ pipeline {
         }
         stage('Building Our Image') { 
 	        steps { 
-	           bat 'docker build -t fatmamunazza/demo:latest .'
+	           bat 'docker build -t fatmamunazza/demo .'
 	        } 
         }
         stage('Login') {
-
 			steps {
-				bat 'docker login -u fatmamunazza'
+				bat 'docker login -u fatmamunazza'		
 			}
 		}
 		stage('Push') {
-
 			steps {
-				bat 'docker push fatmamunazza/demo:latest'
+				bat 'docker tag demo fatmamunazza/demo'
+				bat 'docker push fatmamunazza/demo'
 			}
 		}
 		stage('Cleaning up') { 
             steps { 
-                bat "docker rmi fatmamunazza/demo:latest"
+                bat "docker rmi fatmamunazza/demo"
 
             }
 
