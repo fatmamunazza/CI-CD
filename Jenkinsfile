@@ -11,23 +11,10 @@ pipeline {
     }
     
    stages {
-        stage('build') {
-            steps {
-               bat 'mvn --version'
-               echo 'Building the source'
-               bat 'mvn clean compile'
-            }
-        }
-		stage('test') {
-            steps {
-                echo 'Testing source'
-                bat 'mvn test'
-            }
-        }
 		stage('package') {
             steps {
 				echo 'packaging demo app'
-                bat 'mvn package'
+                bat 'mvn install'
             }
         }
         stage('Building Our Image') { 
@@ -42,7 +29,7 @@ pipeline {
 		}
 		stage('Push') {
 			steps {
-				bat 'docker tag demo fatmamunazza/demo'
+				bat 'docker tag fatmamunazza/demo fatmamunazza/demo'
 				bat 'docker push fatmamunazza/demo'
 			}
 		}
