@@ -12,6 +12,11 @@ pipeline {
     }
     
    stages {
+       stage('Login') {
+			steps {
+				bat 'echo DOCKERHUB_CREDENTIALS_PSW | docker login -u DOCKERHUB_CREDENTIALS_USR --password-stdin'	
+			}
+		}
 		stage('package') {
             steps {
 				echo 'packaging demo app'
@@ -23,11 +28,7 @@ pipeline {
 	           bat 'docker build -t fatmamunazza/demo .'
 	        } 
         }
-        stage('Login') {
-			steps {
-				bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'	
-			}
-		}
+        
 		stage('Push') {
 			steps {
 				bat 'docker tag fatmamunazza/demo fatmamunazza/demo'
