@@ -10,6 +10,11 @@ pipeline {
     }
     
    stages {
+       stage('Building Our Image') { 
+	        steps { 
+	           bat 'docker build -t registry .'
+	        } 
+        }
        stage('Login') {
 			steps {
 			    echo DOCKERHUB_CREDENTIALS_PSW
