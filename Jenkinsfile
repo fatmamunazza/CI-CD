@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Login') {
 			steps {
-				bat 'docker login -u fatmamunazza -p sapient123'		
+				bat 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'		
 			}
 		}
 		stage('Push') {
