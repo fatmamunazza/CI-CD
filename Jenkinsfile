@@ -28,11 +28,6 @@ pipeline {
                 bat 'mvn install'
             }
         }
-        stage('Building Our Image') { 
-	        steps { 
-	           bat 'docker build -t fatmamunazza/demo .'
-	        } 
-        }
         
 		stage('Push') {
 			steps {
