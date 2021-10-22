@@ -10,20 +10,20 @@ pipeline {
     }
     
    stages {
-       stage('build') {
+       stage('Build') {
             steps {
                bat 'mvn --version'
                echo 'Building the source'
                bat 'mvn clean compile'
             }
         }
-		stage('test') {
+		stage('Test') {
             steps {
                 echo 'Testing source'
                 bat 'mvn test'
             }
         }
-		stage('package') {
+		stage('Package') {
             steps {
 				echo 'packaging demo app'
                 bat 'mvn package'
@@ -31,13 +31,12 @@ pipeline {
         }
 	   stage('Building image') {
 	      steps{
-	        echo DOCKERHUB_CREDENTIALS_USR
 	        script {
 	          dockerImage = docker.build(registry)
 	        }
 	      }
 	    }
-	    stage('Deploy our image') { 
+	    stage('Store image to Dockerhub') { 
             steps { 
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
