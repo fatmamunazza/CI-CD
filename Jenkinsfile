@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        registry = "fatmamunazza/demo" 
+        registry = fatmamunazza/demo' 
         DOCKERHUB_CREDENTIALS=credentials('docker_cred')
         dockerImage = '' 
     }
@@ -11,11 +11,8 @@ pipeline {
     
    stages {
        stage('Building Our Image') { 
-	        steps {
-	            echo 'cd'
-	            script {
-                    dockerImage = docker.build(registry)
-                }
+	        steps { 
+	           bat 'docker build -t ${registry} .'
 	        } 
         }
        stage('Login') {
