@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        registry = 'fatmamunazza/demo' 
+        registry="fatmamunazza/demo"
         DOCKERHUB_CREDENTIALS=credentials('docker_cred')
         dockerImage = '' 
     }
@@ -10,6 +10,13 @@ pipeline {
     }
     
    stages {
+	   stage('Building image') {
+	      steps{
+	        script {
+	          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+	        }
+	      }
+	    }
        stage('Login') {
 			steps {
 				bat 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'	
