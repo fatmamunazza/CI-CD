@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        registry="fatmamunazza/demo"
+        registry="fatmamunazza/demo-$BUILD_NUMBER"
         registryCredential = 'docker_cred'
         dockerImage = '' 
     }
