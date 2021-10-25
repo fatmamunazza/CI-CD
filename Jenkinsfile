@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        registry="fatmamunazza/demo-$BUILD_NUMBER"
+        registry="fatmamunazza/demo:$BUILD_NUMBER"
         registryCredential = 'docker_cred'
         dockerImage = '' 
     }
@@ -41,8 +41,7 @@ pipeline {
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
                         dockerImage.push() 
-                    }
-
+                   }
                 } 
             }
         }   
