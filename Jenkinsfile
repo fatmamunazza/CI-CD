@@ -10,12 +10,29 @@ pipeline {
     }
     
    stages {
-     stage('Building image') {
+       stage('Build') {
+            steps {
+               bat 'mvn --version'
+               echo 'Building the source'
+               bat 'mvn clean compile'
+            }
+        }
+		stage('Test') {
+            steps {
+                echo 'Testing source'
+                bat 'mvn test'
+            }
+        }
+		stage('Package') {
+            steps {
+				echo 'packaging demo app'
+                bat 'mvn package'
+            }
+        }
+        stage('Building image') {
 	      steps{
 	        script {
 	          dockerImage = docker.build(registry)
-	          bat "docker tag fatmamunazza/demo:$BUILD_NUMBER fatmamunazza/demo:latest"
-	          dockerImage='fatmamunazza/demo:latest'
 	        }
 	      }
 	    }
@@ -27,7 +44,18 @@ pipeline {
                    }
                 } 
             }
+        }  
+		stage('Cleaning up') { 
+            steps { 
+                bat "docker rmi -f $registry"
+
+            }
         } 
+        stage('Deploy Image'){
+            steps{
+               bat "kubectl apply -f deployment.yml"
+            }
+        }
        
     }
 }
