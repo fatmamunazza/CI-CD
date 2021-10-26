@@ -15,9 +15,19 @@ pipeline {
 	        script {
 	          dockerImage = docker.build(registry)
 	          bat "docker tag fatmamunazza/demo:$BUILD_NUMBER fatmamunazza/demo:latest"
+	          dockerImage='fatmamunazza/demo:latest'
 	        }
 	      }
 	    }
+	    stage('Store image to Dockerhub') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                   }
+                } 
+            }
+        } 
        
     }
 }
