@@ -1,6 +1,6 @@
 pipeline {
     environment { 
-        registry="fatmamunazza/demo:$BUILD_NUMBER"
+        registry="fatmamunazza/demo"
         registryCredential = 'docker_cred'
         dockerImage = '' 
     }
@@ -32,7 +32,7 @@ pipeline {
         stage('Building image') {
 	      steps{
 	        script {
-	          dockerImage = docker.build(registry)
+	          dockerImage = docker.build(registry:$BUILD_NUMBER)
 	        }
 	      }
 	    }
@@ -47,7 +47,8 @@ pipeline {
         }  
 		stage('Cleaning up') { 
             steps { 
-                bat "docker rmi -f $registry"
+                bat "docker rmi -f $registry:$BUILD_NUMBER"
+                bat "docker rmi -f $registry:latest"
 
             }
         } 
