@@ -15,7 +15,7 @@ pipeline {
 	        script {
 	          dockerImage = docker.build(registry)
 	          echo dockerImage
-	          docker tag fatmamunazza/demo:$BUILD_NUMBER fatmamunazza/demo:latest
+	          bat "docker tag fatmamunazza/demo:$BUILD_NUMBER fatmamunazza/demo:latest"
 	        }
 	      }
 	    }
