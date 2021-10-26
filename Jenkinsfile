@@ -47,7 +47,7 @@ pipeline {
         }  
 		stage('Cleaning up') { 
             steps { 
-                bat "docker rmi -f $(docker images --filter=reference='fatmamunazza/demo')"
+                bat '''docker rmi $(docker images --filter=reference="*fatmamunazza/demo*" -q)'''
 
             }
         } 
