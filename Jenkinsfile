@@ -40,14 +40,14 @@ pipeline {
             steps { 
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push('latest') 
+                        dockerImage.push() 
                    }
                 } 
             }
         }  
 		stage('Cleaning up') { 
             steps { 
-                bat '''docker rmi -f $(docker images -q fatmamunazza/demo)'''
+                bat "docker rmi -f $registry"
             }
         } 
         stage('Deploy Image'){
